@@ -6,6 +6,16 @@ menu.addEventListener('click', function(){
     menuLinks.classList.toggle('active');
 })
 
+//Transparent navbar
+window.addEventListener('scroll', function () {
+  const navbar = document.querySelector('.navbar');
+  if (window.scrollY > 50) {
+      navbar.classList.add('transparent');
+  } else {
+      navbar.classList.remove('transparent');
+  }
+});
+
 // Smooth scrolling
 document.addEventListener('DOMContentLoaded', function() {
     var navLinks = document.querySelectorAll('nav a');
