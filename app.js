@@ -36,3 +36,22 @@ document.addEventListener('DOMContentLoaded', function() {
       window.scrollTo(scrollOptions);
     }
 });
+
+//Return to the top of the page or to the home page
+document.addEventListener('DOMContentLoaded', function() {
+  const logoLink = document.getElementById('navbar__logo');
+
+  logoLink.addEventListener('click', function(event) {
+      const currentPage = window.location.pathname;
+
+      if (currentPage === '/index.html' || currentPage === '/') {
+          // If on index page, scroll to the top
+          event.preventDefault();
+          window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+          });
+      }
+      // Otherwise, let the link behave as normal
+  });
+});
