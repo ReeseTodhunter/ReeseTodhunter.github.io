@@ -176,12 +176,24 @@
 }
 
 .secondary__content{
-    margin: 100px;
-    padding: 20px;
-    background-color: #000000;
+    margin: 50px;
+    padding: 5px;
+    background-color: #6b6b6b;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    border-radius: 10px;
     text-align: center;
+    transition: background-color 0.7s, transform 0.7s;
+}
+
+.secondary__image{
+    overflow: hidden; /* Hide overflow for curved edges */
+    border-radius: 10px; /* Curve image edges */
+}
+
+.secondary__image img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 @media screen and (max-width: 1000px) {
@@ -367,9 +379,15 @@
     font-family:'Quicksand',sans-serif;
     font-size: 1rem;
     font-weight: 550;
+    margin: 10px;
     background-color: #d8d8d8;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;
     -moz-text-fill-color: transparent;
+}
+
+.secondary__content:hover{
+    background-color: #e2e2e2;
+    transform: scale(1.1); /* Increase size on hover */
 }
