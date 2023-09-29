@@ -134,7 +134,7 @@
 
 /*About Me Section*/
 .main{
-    background-color: #062F4F;
+    background-color: #06194f;
 }
 
 .main__container{
@@ -144,10 +144,11 @@
     margin: 0 auto;
     margin-top: -50px;
     height: 70vh;
-    background-color: #062F4F;
+    background-color: #06194f;
     z-index: 1;
     width: 100%;
     max-width: 1300px;
+    min-height: 525px;
     padding: 0 50px;
 }
 
@@ -165,6 +166,7 @@
     background-color: #131313;
     z-index: 1;
     width: 100%;
+    min-height: 100px;
     padding: 0 50px;
 }
 
@@ -175,7 +177,7 @@
     background-color: #222222;
 }
 
-.secondary__content{
+.project__selections{
     margin: 50px;
     padding: 5px;
     background-color: #6b6b6b;
@@ -194,6 +196,27 @@
     width: 100%;
     height: auto;
     display: block;
+}
+
+.project__selections:hover{
+    background-color: #e2e2e2;
+    transform: scale(1.1); /* Increase size on hover */
+}
+
+.tertiary{
+    background-color: #131313;
+}
+
+.tertiary__container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #131313;
+    min-height: 100px;
+}
+
+.tertiary__title{
+    padding: 5px;
 }
 
 @media screen and (max-width: 1000px) {
@@ -309,7 +332,7 @@
         padding-bottom: 35.25%;
         overflow: hidden;
         width: 100%;
-        margin-bottom: 0px;
+        margin-bottom: -50px;
     }
 
     .main__container{
@@ -322,7 +345,22 @@
         z-index: 1;
         width: 100%;
         max-width: 1300px;
+        min-height: 575px;
         padding: 0 50px;
+    }
+
+    .secondary__title{
+        min-height: 100px;
+    }
+
+    .project__selections{
+        transform: scale(0.8);
+        margin: 0px;
+    }
+
+    .project__selections:hover{
+        background-color: #e2e2e2;
+        transform: scale(0.9); /* Increase size on hover */
     }
 }
 
@@ -387,7 +425,39 @@
     -moz-text-fill-color: transparent;
 }
 
-.secondary__content:hover{
-    background-color: #e2e2e2;
-    transform: scale(1.1); /* Increase size on hover */
+.tertiary h1{
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 100;
+    background-color: #f7f7f7;
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+}
+
+.tertiary h2{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 100;
+    background-color: #f7f7f7;
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+}
+
+.tertiary p{
+    text-align: center;
+    font-family:'Quicksand',sans-serif;
+    font-size: 1rem;
+    font-weight: 550;
+    margin: 10px;
+    background-color: #d8d8d8;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
 }

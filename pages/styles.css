@@ -2,7 +2,11 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Kumbh Sans', sans-serif;
+    font-family: 'Arial', sans-serif;
+}
+
+body{
+    background-color: #222222;
 }
 
 .navbar{
@@ -114,119 +118,38 @@
     margin-right: 5px;
 }
 
-/*Video Section*/
-.video__wrapper {
-    position: relative;
-    padding-bottom: 34.25%;
-    overflow: hidden;
-    width: 100%;
-    margin-bottom: 0px;
-}
-
-.video__content video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+/* Project Base */
+.project{
+    width: 100%; /* Bounds for project area */
     height: 100%;
-    object-fit: cover;
-}
-
-/*About Me Section*/
-.main{
-    background-color: #062F4F;
-}
-
-.main__container{
-    display: grid;
-    align-items: center;
-    justify-self: center;
-    margin: 0 auto;
-    margin-top: -50px;
-    height: 70vh;
-    background-color: #062F4F;
-    z-index: 1;
-    width: 100%;
-    max-width: 1300px;
-    padding: 0 50px;
-}
-
-.secondary{
-    background-color: #222222;
-}
-
-.secondary__title{
-    display: grid;
-    align-items: center;
-    justify-self: center;
-    margin: 0 auto;
-    margin-top: -50px;
-    height: 15vh;
-    background-color: #131313;
-    z-index: 1;
-    width: 100%;
-    padding: 0 50px;
-}
-
-.secondary__container{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items: center;
-    justify-self: center;
-    margin: 0 auto;
-    margin-top: 0;
-    height: 90vh;
-    background-color: #222222;
-    z-index: 1;
-    width: 100%;
-    max-width: 1300px;
-    padding: 0 50px;
-}
-
-/* Add this CSS to your existing styles.css or create a new stylesheet */
-.projects {
-    padding: 60px 0;
-    text-align: center;
-    background-color: #f5f7f9;
-}
-
-.section__title {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 30px;
-}
-
-.projects__container {
-    display: flex;
-    flex-wrap: wrap;
+    display:flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
-.project {
-    margin: 100px;
-    padding: 20px;
-    background-color: #000000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+/*Title*/
+.project__title{
+    margin-top: 10px;
+}
+
+/*Background square*/
+.project__background{
+    width: 60%; /* Width of the rectangle */
+    min-width: 500px;
+    height: 200px; /* Height of the rectangle */
+    background-color: #0e3752; /* Rectangle background color */
+    border-radius: 20px; /* Border radius for curved edges */
     text-align: center;
+    color: #fff; /* Text color */
+    font-size: 24px;
+    margin-top: 20px; /* Add space between nav bar and project box*/
+    padding: 20px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-
-.project img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
-.project__title {
-    font-size: 1.5rem;
-    color: #333;
-    margin: 10px 0;
-}
-
-.project__description {
-    color: #666;
-}
-
 
 @media screen and (max-width: 1000px) {
     .navbar__container{
@@ -258,7 +181,7 @@
         opacity: 1;
         transition: all 0.5s ease;
         z-index: 99;
-        height: 50vh;
+        height: 90vh;
         font-size: 1.6rem;
     }
 
@@ -335,75 +258,11 @@
     #mobile-menu.is-active .bar:nth-child(3){
         transform: translateY(-10px) rotate(-45deg);
     }
-
-    .video__wrapper {
-        position: relative;
-        padding-bottom: 35.25%;
-        overflow: hidden;
-        width: 100%;
-        margin-bottom: 0px;
-    }
-
-    .main__container{
-        display: grid;
-        align-items: center;
-        justify-self: center;
-        margin: 0 auto;
-        height: 90vh;
-        background-color: #062F4F;
-        z-index: 1;
-        width: 100%;
-        max-width: 1300px;
-        padding: 0 50px;
-    }
 }
 
-.main__content h1{
+.project h1{
     text-align: center;
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: 100;
-    background-color: #ff8177;
-    background-image: linear-gradient(to top, #ffffff 0%, #8b8b8b 100%);
-    background-size: 100%;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-}
-
-.main__content p{
-    margin-top: 1rem;
-    font-family:'Quicksand',sans-serif;
-    font-size: 1rem;
-    font-weight: 510;
-    background-color: rgb(255, 255, 255);
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-}
-
-.secondary h1{
-    text-align: center;
-    font-size: 4rem;
-    font-weight: 100;
-    background-color: #ff8177;
-    background-image: linear-gradient(to top, #ffffff 0%, #8b8b8b 100%);
-    background-size: 100%;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-}
-
-.secondary p{
-    margin-top: 1rem;
-    font-family:'Quicksand',sans-serif;
-    font-size: 1rem;
-    font-weight: 510;
-    background-color: rgb(255, 255, 255);
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
+    color: #f7f7f7;
 }
