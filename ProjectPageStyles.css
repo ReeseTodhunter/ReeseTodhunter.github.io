@@ -137,7 +137,7 @@ body{
 .project__background{
     width: 60%; /* Width of the rectangle */
     min-width: 500px;
-    height: 200px; /* Height of the rectangle */
+    min-height: 300px; /* Height of the rectangle */
     background-color: #0e3752; /* Rectangle background color */
     border-radius: 20px; /* Border radius for curved edges */
     text-align: center;
@@ -149,6 +149,15 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+/*Video wrapper*/
+.video__wrapper{
+    min-width: 50%;
+}
+
+.video__wrapper video{
+    border-radius: 20px;
 }
 
 @media screen and (max-width: 1000px) {
