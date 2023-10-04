@@ -158,6 +158,44 @@ body{
 
 .video__wrapper video{
     border-radius: 20px;
+    
+}
+
+/*Info text*/
+.dropdown__button{
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.dropdown__content{
+    overflow: hidden;
+    border: 1px;
+    transition: max-height 0.3s ease-in-out;
+    max-height: 0;
+}
+
+.dropdown__text{
+    padding: 10px;
+}
+
+.dropdown.active .dropdown__content {
+    max-height:100%;
+    opacity: 1;
+}
+
+.inner-dropdown .dropdown-content {
+    overflow: hidden;
+    border: 1px;
+    transition: max-height 0.3s ease-in-out;
+    max-height: 0;
+}
+
+.inner-dropdown.active .dropdown-content {
+    max-height: 100%;
+    padding: 10px;
 }
 
 @media screen and (max-width: 1000px) {
@@ -271,7 +309,23 @@ body{
 
 .project h1{
     text-align: center;
-    font-size: 3rem;
+    font-size: 6rem;
     font-weight: 100;
+    color: #f7f7f7;
+}
+
+.project p{
+    text-align: center;
+    font-size: 1.2rem;
+    color: #f7f7f7;
+}
+
+.project a{
+    color: #f7f7f7;
+}
+
+.dropdown__content{
+    text-align: center;
+    font-size: 1.2rem;
     color: #f7f7f7;
 }

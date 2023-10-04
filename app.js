@@ -41,6 +41,40 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// JavaScript code to toggle the dropdown
+document.addEventListener('DOMContentLoaded', function() {
+  const dropdownButtons = document.querySelectorAll('.dropdown__button');
+  const dropdowns = document.querySelectorAll('.dropdown');
+
+  dropdownButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+          const dropdownContent = button.nextElementSibling;
+          const isOpen = dropdownContent.classList.contains('active');
+
+          if (isOpen) {
+              // Close the dropdown
+              dropdownContent.style.maxHeight = null;
+              dropdownContent.classList.remove('active');
+          } else {
+              // Open the dropdown
+              dropdownContent.style.maxHeight = dropdownContent.scrollHeight + 'px';
+              dropdownContent.classList.add('active');
+
+              // Delayed adjustment of parent dropdown heights
+              setTimeout(function() {
+                  let parentDropdown = button.closest('.dropdown');
+                  while (parentDropdown) {
+                      const parentDropdownContent = parentDropdown.querySelector('.dropdown__content');
+                      parentDropdownContent.style.maxHeight = parentDropdownContent.scrollHeight + 'px';
+                      parentDropdown = parentDropdown.parentElement.closest('.dropdown');
+                  }
+              }, 300); // Adjust the delay (300 milliseconds) as needed
+          }
+      });
+  });
+});
+
+
 const menu = document.querySelector('#mobile-menu');
 const menuLinks = document.querySelector('.navbar__menu');
 
