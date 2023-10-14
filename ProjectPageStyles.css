@@ -136,7 +136,7 @@ body{
 /*Background square*/
 .project__background{
     width: 60%; /* Width of the rectangle */
-    min-width: 500px;
+    min-width: 300px;
     min-height: 300px; /* Height of the rectangle */
     background-color: #0e3752; /* Rectangle background color */
     border-radius: 20px; /* Border radius for curved edges */
