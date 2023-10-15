@@ -5,6 +5,12 @@
     font-family: 'Kumbh Sans', sans-serif;
 }
 
+.main__content a,
+.secondary a,
+.tertiary a {
+    text-decoration: none;
+}
+
 .navbar{
     background: rgba(0, 0, 0, 1);
     height: 50px;
@@ -152,6 +158,8 @@
     padding: 0 50px;
 }
 
+/*Projects Section*/
+
 .secondary{
     background-color: #222222;
 }
@@ -166,7 +174,7 @@
     background-color: #131313;
     z-index: 1;
     width: 100%;
-    min-height: 100px;
+    min-height: 125px;
     padding: 0 50px;
 }
 
@@ -198,10 +206,27 @@
     display: block;
 }
 
+.tag {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tag div {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
 .project__selections:hover{
     background-color: #e2e2e2;
     transform: scale(1.1); /* Increase size on hover */
 }
+
+/*Contact Me Section*/
 
 .tertiary{
     background-color: #131313;
@@ -350,7 +375,7 @@
     }
 
     .secondary__title{
-        min-height: 100px;
+        min-height: 125px;
     }
 
     .project__selections{
@@ -390,7 +415,7 @@
 
 .secondary h1{
     text-align: center;
-    font-size: 3rem;
+    font-size: 4rem;
     font-weight: 100;
     background-color: #f7f7f7;
     background-size: 100%;
