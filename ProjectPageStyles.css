@@ -161,8 +161,15 @@ body{
 }
 
 /*Info text*/
+.dropdown{
+    width:100%;
+    height:auto;
+    padding-top: 5px;
+    border-radius: 5px;
+}
+
 .dropdown__button{
-    background-color: #093404;
+    background-color: #063600;
     color: white;
     border: none;
     border-radius: 5px;
@@ -178,10 +185,12 @@ body{
 }
 
 .dropdown__content{
+    width: 100%;
+    height: auto;
     overflow: hidden;
     border: 1px;
     border-radius: 5px;
-    transition: max-height 0.3s ease-in-out;
+    transition: max-height 0.3s ease-in-out, background-color 0.3s ease-in-out;
     max-height: 0;
 }
 
@@ -191,6 +200,7 @@ body{
 
 .dropdown.active .dropdown__content {
     max-height:100%;
+    background-color: rgba(0, 0, 0, 0.4);
     opacity: 1;
 }
 
@@ -203,6 +213,7 @@ body{
 
 .inner-dropdown.active .dropdown-content {
     max-height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
     padding: 10px;
 }
 

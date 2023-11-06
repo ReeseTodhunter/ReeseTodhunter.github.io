@@ -140,7 +140,7 @@
 
 /*About Me Section*/
 .main{
-    background-color: #06194f;
+    background-color: #0e5210;
 }
 
 .main__container{
@@ -150,7 +150,7 @@
     margin: 0 auto;
     margin-top: -50px;
     height: 70vh;
-    background-color: #06194f;
+    background-color: #0e5210;
     z-index: 1;
     width: 100%;
     max-width: 1300px;
