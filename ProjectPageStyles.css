@@ -185,8 +185,6 @@ body{
 }
 
 .dropdown__content{
-    width: 100%;
-    height: auto;
     overflow: hidden;
     border: 1px;
     border-radius: 5px;
@@ -215,6 +213,34 @@ body{
     max-height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
     padding: 10px;
+}
+
+/*code segments*/
+.dropdown__codeblock{
+    max-height: 300px; /* Set your preferred maximum height */
+    max-width: 100%;
+    margin: auto;
+    overflow-y: auto;
+    overflow-x: auto;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1em;
+    border-radius: 5px;
+}
+
+.dropdown__codeblock pre{
+    white-space: pre-wrap;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.dropdown__codeblock code.language-csharp{
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    text-align: left;
+    display: block;
+    font-weight: normal;
+    box-sizing: border-box;
 }
 
 @media screen and (max-width: 1000px) {
