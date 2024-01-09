@@ -196,6 +196,11 @@ body{
     padding: 10px;
 }
 
+.dropdown__text__2{
+    padding: 10px;
+    font-size: 1rem;
+}
+
 .dropdown.active .dropdown__content {
     max-height:100%;
     background-color: rgba(0, 0, 0, 0.4);

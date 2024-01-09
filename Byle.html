@@ -71,9 +71,11 @@
         
                                     <div class = "dropdown__content">
                                         <div class ="dropdown__text">
-                                            The player controller inherits from a base Character class. I created this class for use in both the Player and AI controllers.<br/>
-                                            Where it supports all of the base functions the player and enemies may need such as taking damage, healing, dying and gaining status effects.<br/>
-                                            This base class can be seen is this dropdown.
+                                            The player controller is built to function as a top down character with multiple weapon and powerup 
+                                            capabilities which can be swapped out and changed at run time.<br/>
+                                            The controller inherits from a "Character" base class, which holds the base methods for things such as: Healing, Taking Damage, Death and Status Effects. <br/>
+                                            Along side all of their repective variables.<br/>
+                                            Both the "Character" and the "PlayerController" code can be found within the below dropdowns.<br/>
                                         </div>
                                         <div class = "dropdown">
                                             <button class="dropdown__button" style = "background-color: rgb(54, 141, 158); scale: 80%;">
@@ -639,12 +641,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class ="dropdown__text">
-                                            The Player Controller on the other hand was coded to handle anything specific to the player such as animations, the stats and equipment of the selected character, player movement, item interactions, audio and finally, weapon switching and usage.<br/>
-                                            Ontop of this the Player Controller overwrites a few of the base Character functions to add more player specific interactions to the existing functions.<br/>
-                                            These include things like checking if the player is rolling in the damage check so to not apply damage to the player if they are supposed to be invulnerable.<br/>
-                                            Again all of the Player Controller Code can be found in the below drop down.
                                         </div>
                                         <div class = "dropdown">
                                             <button class="dropdown__button" style = "background-color: rgb(54, 141, 158); scale: 80%;">
@@ -1676,11 +1672,631 @@ public enum PlayerMoveDirection
                                     <button class="dropdown__button">
                                         Weapons
                                     </button>
-        
                                     <div class = "dropdown__content">
+
                                         <div class ="dropdown__text">
-                                            Dropdowns All
+                                            The weapons within the game are built upon 2 of 3 base classes.<br/>
+                                            The Base Weapon class holds all of the base requirements for any weapon within the game such as the weapon audio,
+                                            different weapon reticles and each weapon's flavour/pickup text.<br/>
+                                            This class also contains virtual functions for all firing and reloading scripts acting as a template class for other weapon bases.<br/>
+                                            This Base Weapon Class can be seen below.<br/>
                                         </div>
+
+                                        <div class = "dropdown">
+                                            <button class="dropdown__button" style = "background-color: rgb(54, 141, 158); scale: 80%;">
+                                                Base Weapon Code
+                                            </button>
+                                            <div class = "dropdown__content">
+                                                <div class = "code__container">
+                                                    <div class = "dropdown__codeblock">
+<pre><code class="language-csharp">
+    //Base class for all weapons 
+    public class BaseWeapon : MonoBehaviour
+    {
+        public int weaponID; // ID of the weapon
+        public bool weaponIsHeldInPistolPos;
+        #region WeaponIDs
+        /*
+         * 0 Basic Gun
+         * 1 Ak-47
+         * 2 Shotgun
+         * 3 Sniper
+         * 4 Flamethrower
+         * 5 Minigun
+         * 6 RPG
+         * 7 Laser
+         * 8 Boomerang Launcher
+         * 9 Bounce Gun
+         * 10 Shatter Cannon
+         * 11 Goose Gun
+         * 12 Katana
+         */
+        #endregion
+        public List<AudioClip> fireAudioClips = null;
+        public List<AudioClip> reloadAudioClips = null;
+        public Texture2D weaponCursor;
+        protected int audioCounter = 0;
+    
+        private float bobSpeed;
+    
+        //Modifiers
+        private float damageModifier = 1.0f;
+        private float rofModifier = 1.0f;
+        private float speedModifier = 1.0f;
+        private float reloadSpeedModifier = 1.0f;
+        private float magSizeModifier = 1.0f;
+    
+        // Description
+        public string weaponName = ""; // Name of the powerup in item desc box
+    
+        [TextArea(15, 20)]
+        public string weaponDescription = ""; // Description of the powerup in item desc box
+        public Sprite weaponSprite = null; // Weapon icon
+        protected GameObject descriptionBox;
+    
+        //State
+        public enum WeaponState
+        {
+            EQUIPPED,
+            STOWED,
+            DROPPED
+        }
+        public WeaponState currState = WeaponState.DROPPED;
+    
+        //Virtual functions
+        public virtual void OnFireOneHeld() {}
+        public virtual void OnFireOneDown() {}
+        public virtual void OnFireOneUp() { }
+        public virtual void OnFireTwoHeld() { }
+        public virtual void OnFireTwoDown() {}
+        public virtual void OnFireTwoUp() { }
+        public virtual void OnReloadHeld() { }
+        public virtual void OnReloadDown() {}
+        public virtual void OnReloadUp() { }
+        public virtual void OnReloadCancel() { }
+        public virtual void SetModifiers() { }
+        public virtual string GetSwapAnimName(){return "";}
+        public virtual string GetIdleAnimName(){return "";}
+        public virtual void OnStow()
+        {
+            currState = WeaponState.STOWED;
+        }
+        public virtual void OnEquip()
+        {
+            currState = WeaponState.EQUIPPED;
+            //CursorController.instance.SetCursor(weaponCursor);
+            GameManager.GMinstance.GetComponent<Crosshair>().SetCrosshair();
+        }
+        public virtual void OnPickup()
+        {
+            this.GetComponent<Collider>().enabled = false;
+            currState = WeaponState.EQUIPPED;
+            RemoveDescBox();
+            if (GameManager.GMinstance.weaponsPickedUp.Length - 1 >= weaponID)
+            {
+                GameManager.GMinstance.weaponsPickedUp[weaponID] = true;
+            }
+            //CursorController.instance.SetCursor(weaponCursor);
+            GameManager.GMinstance.GetComponent<Crosshair>().SetCrosshair();
+        }
+        public virtual void OnDrop()
+        {
+            currState = WeaponState.DROPPED;
+            this.GetComponent<Collider>().enabled = true;
+            transform.parent = null;
+            Vector3 pos = transform.position;
+            pos.y = 0.5f;
+            transform.position = pos;
+            SpawnDescBox();
+        }
+    
+        public virtual void PlayAudio(List<AudioClip> audioClips)
+        {
+            if (audioClips.Count > 0)
+            {
+                //get random audio 
+                int randAudio = Random.Range(0, audioClips.Count);
+                //Play Reload Audio clip on reload
+                if (gameObject.TryGetComponent(out AudioSource audioSource))
+                {
+                    audioSource.clip = audioClips[randAudio];
+                    //audioSource.time = 0.3f;
+                    audioSource.volume = GameManager.GMinstance.FXVolume;
+                    audioSource.Play();
+                }
+            }
+        }
+    
+        public virtual void Idle()
+        {
+            transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y + (50 * Time.unscaledDeltaTime), 0);
+    
+            if (transform.position.y >= 1.2f)
+            {
+                bobSpeed = -0.5f;
+            }
+            else if (transform.position.y <= 0.8f)
+            {
+                bobSpeed = 0.5f;
+            }
+    
+            transform.position = new Vector3(transform.position.x, transform.position.y + (bobSpeed * Time.unscaledDeltaTime), transform.position.z);
+        }
+    
+        public virtual bool isEquipped()
+        {
+            if(currState == WeaponState.EQUIPPED)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    
+        public void SpawnDescBox()
+        {
+            if(ItemPopupController.instance == null){Debug.Log("null");}
+            ItemPopupController.instance.AddBox(weaponName, weaponDescription, transform.position);
+        }
+        public void RemoveDescBox()
+        {
+            if(ItemPopupController.instance == null){Debug.Log("null");}
+            ItemPopupController.instance.RemoveBox(weaponName, weaponDescription, transform.position);
+        }
+    
+        public string GetDescription()
+        {
+            return weaponDescription;
+        }
+    }
+</code></pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class ="dropdown__text">
+                                            Off of this base weapon class both the "Projectile" and "Beam" weapon base classes are built.<br/>
+                                            These classes serve as the actual base for most weapons within the game, containing the complete functions for firing and reloading.
+                                            This allows for the easy creation and itteration of new weapons from these base classes.<br/>
+                                            Both of these classes are shown below.<br/>
+                                        </div>
+
+                                        <div class = "dropdown">
+                                            <button class="dropdown__button" style = "background-color: rgb(54, 141, 158); scale: 80%;">
+                                                Projectile Weapon Base
+                                            </button>
+                                            <div class = "dropdown__content">
+                                                <div class = "code__container">
+                                                    <div class = "dropdown__codeblock">
+<pre><code class="language-csharp">
+    public class ProjectileWeapon : BaseWeapon
+    {
+        public Transform spawnLocation;
+        public GameObject projectilePrefab;
+        public GameObject muzzleFlash;
+        public float rateOfFire = 0.2f;
+        public float speed;
+        public float accel;
+        public float lifetime;
+        public float dmg;
+        public float spreadInDegrees = 0;
+        protected float baseDmg;
+        public int magazineSize = 8;
+        public float reloadDuration = 1;
+        protected float reloadTimer = 0;
+        protected int currMagSize = 8;
+        [Range(0,1)]
+        public float critChance = 0.1f;
+        public float critMultiplier = 1.25f;
+        private float time = 0;
+        public string shootAnimName ="";
+        public string reloadAnimName = "";
+        public string swapToAnimName = "";
+        public string idleAnimName = "";
+        public bool poolObjects = false; // True if weapon uses object pooling
+        protected int poolIndex = 0; // Current index in array
+        public int poolSize = 5; // Size of pool
+        public GameObject[] projPool; // Array containing all pooled projectiles
+        private Animator animator;
+        protected reloadState currReloadState = reloadState.READY;
+        protected enum reloadState
+        {
+            READY,
+            RELOADING
+        }
+        private void Start()
+        {
+            projPool = new GameObject[poolSize];
+            animator = PlayerController.instance.gameObject.GetComponent<Animator>();
+            currMagSize = magazineSize + (int)(magazineSize * PlayerController.instance.GetModifier(ModifierType.ClipSize));
+            baseDmg = dmg;
+        }
+    
+        public override void OnFireOneHeld()
+        {
+            if (Time.unscaledTime - time < rateOfFire * (PlayerController.instance.GetModifier(ModifierType.RateOfFire)) || currReloadState == reloadState.RELOADING) { return; }
+    
+            if (currMagSize < 1)
+            {
+                OnReloadDown();
+                return;
+            }
+    
+            time = Time.unscaledTime;
+            if (shootAnimName != "")
+            {
+                animator.speed = 1 / (rateOfFire * (PlayerController.instance.GetModifier(ModifierType.RateOfFire)));
+                animator.Play(shootAnimName);
+            }
+            OnShoot();
+            MagazineUIController.instance.RefreshMagazineUI(magazineSize + (int)(magazineSize * PlayerController.instance.GetModifier(ModifierType.ClipSize)), currMagSize);
+        }
+        protected virtual void OnShoot()
+        {
+            GameObject projectile;
+    
+            // Object pooling
+            if (poolObjects)
+            {
+                // If index in pool array is empty, instantiate new projectile and add it to the pool array
+                if (projPool[poolIndex] == null)
+                {
+                    projectile = Instantiate(projectilePrefab, spawnLocation.position, spawnLocation.rotation);
+                    projPool[poolIndex] = projectile;
+                }
+                // If index in pool array isnt empty, reinitialise the projectile
+                else
+                {
+                    projectile = projPool[poolIndex];
+                    projectile.GetComponent<Projectile>().Enable(spawnLocation);
+                }
+                poolIndex = (poolIndex + 1) % projPool.Length;
+            }
+    
+            // Just instantiate if object pooling isnt being used (only applies to katana really, and that overrides this function anyway)
+            else
+            {
+                projectile = Instantiate(projectilePrefab, spawnLocation.position, spawnLocation.rotation);
+            }
+    
+            //Play weapon fire audio
+            PlayAudio(fireAudioClips);
+    
+            float spread = Random.Range(-spreadInDegrees/2,spreadInDegrees/2);
+            Vector3 angle = spawnLocation.transform.eulerAngles;
+            angle.y += spread;
+            projectile.transform.eulerAngles = angle;
+            projectile.GetComponent<Projectile>().Init(speed * (1 + PlayerController.instance.GetModifier(ModifierType.ProjectileSpeed)), accel, lifetime, 
+                dmg * (1 + PlayerController.instance.GetModifier(ModifierType.Damage)), PlayerController.instance.gameObject, poolObjects)
+            .SetCrit(GetIsCrit(), critMultiplier)
+            .SetPierce((int)PlayerController.instance.GetModifier(ModifierType.Pierce), 1.0f);
+            currMagSize--;
+    
+            //Play VFX
+            if(muzzleFlash == null) { return; }
+            VisualEffect vfx;
+            if (muzzleFlash.TryGetComponent<VisualEffect>(out vfx))
+            {
+                vfx.Play();
+            }
+            ParticleSystem pSystem;
+            if (muzzleFlash.TryGetComponent<ParticleSystem>(out pSystem))
+            {
+                pSystem.Play();
+            }
+            return;
+        }
+        public override void OnReloadDown()
+        {
+            if(currReloadState == reloadState.RELOADING) { return; }
+    
+            //Play weapon reload audio
+            PlayAudio(reloadAudioClips);
+    
+            ReloadAnimation.instance.BeginAnimation(reloadDuration / (1 + PlayerController.instance.GetModifier(ModifierType.ReloadTime)), 0, 0, false);
+            reloadTimer = 0;
+            currReloadState = reloadState.RELOADING;
+            if (reloadAnimName != "")
+            {
+                animator.speed = 1 / reloadDuration * (1 + PlayerController.instance.GetModifier(ModifierType.ReloadTime));
+                animator.Play(reloadAnimName);
+            }
+        }
+        public override void OnPickup()
+        {
+            base.OnPickup();
+            MagazineUIController.instance.RefreshMagazineUI(magazineSize + (int)(magazineSize * PlayerController.instance.GetModifier(ModifierType.ClipSize)), currMagSize);
+        }
+        public override void OnEquip()
+        {
+            base.OnEquip();
+            MagazineUIController.instance.RefreshMagazineUI(magazineSize + (int)(magazineSize * PlayerController.instance.GetModifier(ModifierType.ClipSize)), currMagSize);
+        }
+        public override void OnDrop()
+        {
+            if (poolObjects)
+            {
+                // Clear out object pool list
+                foreach (GameObject projectile in projPool)
+                {
+                    Destroy(projectile);
+                }
+                projPool = new GameObject[poolSize];
+            }
+    
+            base.OnDrop();
+        }
+        private void Update()
+        {
+            if (currState == WeaponState.DROPPED)
+            {
+                Idle();
+            }
+            UpdateProjectileWeapon();
+        }
+        protected void UpdateProjectileWeapon()
+        {
+            switch (currReloadState)
+            {
+                case reloadState.RELOADING:
+                    reloadTimer += Time.unscaledDeltaTime * (1 + PlayerController.instance.GetModifier(ModifierType.ReloadTime));
+                    if(reloadTimer < reloadDuration) { break; }
+                    currMagSize = magazineSize + (int)(magazineSize * PlayerController.instance.GetModifier(ModifierType.ClipSize));
+                    MagazineUIController.instance.RefreshMagazineUI(magazineSize + (int)(magazineSize * PlayerController.instance.GetModifier(ModifierType.ClipSize)), magazineSize + (int)(magazineSize * PlayerController.instance.GetModifier(ModifierType.ClipSize)));
+                    reloadTimer = 0;
+                    currReloadState = reloadState.READY;
+                    OnReloadFinished();
+                    break;
+                default:
+                    return;
+            }
+        }
+        protected virtual void OnReloadFinished()
+        {
+        }
+        public override string GetSwapAnimName()
+        {
+            return swapToAnimName;
+        }
+        public override string GetIdleAnimName()
+        {
+            return idleAnimName;
+        }
+        protected bool GetIsCrit()
+        {
+            float rnd = Random.Range(1,100);
+            rnd /= 100;
+            if(rnd < critChance + PlayerController.instance.GetModifier(ModifierType.CritChance))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    
+        public void SetMagazineSize(int mag)
+        {
+            magazineSize = mag;
+        }
+    
+    }
+</code></pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class = "dropdown">
+                                            <button class="dropdown__button" style = "background-color: rgb(54, 141, 158); scale: 80%;">
+                                                Beam Weapon Base
+                                            </button>
+                                            <div class = "dropdown__content">
+                                                <div class = "code__container">
+                                                    <div class = "dropdown__codeblock">
+<pre><code class="language-csharp">
+    public class BeamWeapon : BaseWeapon
+    {
+        private float heat = 0;
+        private float maxHeat = 1;
+        public float heatDissipationRate = 0.33f;
+        public float heatBuildupRate = 1f;
+        public float forcedDissipateDuration = 2;
+        private bool isFiring = false;
+        private bool forcedDissipating = false;
+        public GameObject laserPrefab;
+        private GameObject laserObject;
+        public Transform laserStartPos;
+        private Transform impactVFX;
+        public string coolDownAnimName = "";
+        public string shootAnimName = "";
+        public string swapAnimName = "";
+        public string idleAnimName = "";
+        private Animator animator;
+        public float tickRate = 5;
+        private float tickTimer = 0;
+        private bool canDamge = false;
+        public float damagePerSecond = 2;
+        [Range(0,1)]
+        public float critChance = 0.1f;
+        public float critMultiplier = 2;
+        private enum State
+        {
+            inactive,
+            shooting,
+            overheated
+        }
+        State currentState = State.inactive;
+        void Start()
+        {
+            animator = PlayerController.instance.GetComponent<Animator>();
+            currentState = State.inactive;
+            laserObject = GameObject.Instantiate(laserPrefab,laserStartPos.position,laserStartPos.rotation);
+            laserObject.SetActive(true);
+            laserObject.GetComponent<Animator>().Play("Asleep");
+            laserObject.transform.parent = laserStartPos;
+            impactVFX = laserObject.transform.GetChild(2);
+            impactVFX.parent = null;
+        }
+        void Update()
+        {
+            if (currState == WeaponState.DROPPED)
+            {
+                Idle();
+            }
+    
+            laserObject.GetComponent<LineRenderer>().SetPosition(0,laserStartPos.position);
+            switch(currentState)
+            {
+                case State.inactive:
+                    //PlayAudio(reloadAudioClips);
+                    if (heat <= 0)
+                    {
+                        heat = 0;
+                        HeatIndicator.instance.SetVisible(false);
+                        return;
+                    }
+                    heat -= Time.unscaledDeltaTime * heatDissipationRate;
+                    HeatIndicator.instance.SetVisible(true);
+                    HeatIndicator.instance.SetHeat(heat,maxHeat);
+                    break;
+                case State.shooting:
+                    HeatIndicator.instance.SetVisible(true);
+                    if (gameObject.GetComponent<AudioSource>().isPlaying == false)
+                    {
+                        PlayAudio(fireAudioClips);
+                    }
+                    
+                    if (heat >= maxHeat)
+                    {
+                        heat = maxHeat;
+                        HeatIndicator.instance.SetCoolingDown(forcedDissipateDuration);
+                        laserObject.GetComponent<Animator>().Play("WindDown");
+                        animator.Play(coolDownAnimName);
+                        currentState = State.overheated;
+                        return;
+                    }
+                    heat += Time.unscaledDeltaTime * heatBuildupRate;
+                    GetLaserEndPos();
+                    HeatIndicator.instance.SetHeat(heat,maxHeat);
+                    break;
+                case State.overheated:
+                    heat -= Time.unscaledDeltaTime * 1 / forcedDissipateDuration;
+                    if(heat <= 0)
+                    {
+                        currentState = State.inactive;
+                        HeatIndicator.instance.SetVisible(false);
+                        animator.Play("BeamCooldownDeTransition");
+                    }
+                    break;
+            }
+            tickTimer += Time.unscaledDeltaTime;
+            if(tickTimer < 1 / tickRate){canDamge = false; return;}
+            canDamge = true;
+            tickTimer = 0;
+        }
+        public override void OnFireOneHeld()
+        {
+            if(currentState != State.overheated)
+            {
+                laserObject.GetComponent<Animator>().Play("Active");
+                currentState = State.shooting;
+            }
+        }
+        public override void OnFireOneDown()
+        {
+            if(currentState != State.overheated)
+            {
+                animator.Play(shootAnimName);
+            }
+        }
+        public override void OnFireOneUp()
+        {
+            if(currentState != State.overheated)
+            {
+                laserObject.GetComponent<Animator>().Play("WindDown");
+                animator.Play(idleAnimName);
+                currentState = State.inactive;
+            }
+        }
+        private void GetLaserEndPos()
+        {
+            RaycastHit hit;
+            Vector3 endPos;
+            if(Physics.Raycast(laserStartPos.position, laserStartPos.forward, out hit, 100, LayerMask.GetMask("Untraversable", "Player", "Enemy", "Hurtbox", "SeeThrough"), QueryTriggerInteraction.Ignore))
+            {
+                endPos = hit.point;
+                if(hit.collider.gameObject.tag != "Player" && canDamge)
+                {
+                    if(hit.collider.gameObject.TryGetComponent<Character>(out Character _character))
+                    {
+                        bool isCrit = GetIsCrit();
+                        float _dmg;
+                        if(isCrit)
+                        {
+                            _dmg = damagePerSecond * critMultiplier;
+                        }
+                        else
+                        {
+                            _dmg = damagePerSecond;
+                        }
+                        _dmg *= 1 + PlayerController.instance.GetModifier(ModifierType.Damage);
+                        _character.Damage(_dmg / tickRate, true, false, false,EffectType.None,isCrit);
+                        tickTimer = 0;
+                        canDamge = false;
+                    }
+                }
+            }
+            else
+            {
+                endPos = laserStartPos.position + laserStartPos.forward * 100;
+            }
+            laserObject.GetComponent<LineRenderer>().SetPosition(1,endPos);
+            impactVFX.position = endPos;
+            impactVFX.forward = impactVFX.forward * -1;
+        }
+        public override void OnPickup()
+        {
+            base.OnPickup();
+            MagazineUIController.instance.RefreshMagazineUI(0,0);
+        }
+        public override void OnEquip()
+        {
+            base.OnEquip();
+            MagazineUIController.instance.RefreshMagazineUI(0,0);
+            transform.localPosition = Vector3.zero;
+        }
+        public override string GetSwapAnimName()
+        {
+            return swapAnimName;
+        }
+        public override string GetIdleAnimName()
+        {
+            return idleAnimName;
+        }
+        protected bool GetIsCrit()
+        {
+            float rnd = Random.Range(1,100);
+            if(rnd < critChance * 100)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+</code></pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
 
