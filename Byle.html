@@ -47,7 +47,6 @@
                     <video src="videos/Byle Trailer.mp4" alt="video" id="main__video"
                      style = "width: 100%; height: 100%;" controls poster = "images/Byle Thumbnail.png"></video>
                 </div>
-                <div class = "project__info">
                     <p><br/>
                         BYLE was built as a final group project at <a href = "https://www.glos.ac.uk/" target="_blank">The University of Gloucestershire</a>.<br/>
                         We had a complete team size of 8 students, made up of 5 programmers, 2 designers and 1 animator.<br/>
@@ -82,8 +81,7 @@
                                                 Character Code
                                             </button>
                                             <div class = "dropdown__content">
-                                                <div class = "code__container">
-                                                    <div class = "dropdown__codeblock">
+                                                <div class = "dropdown__codeblock">
 <pre><code class="language-csharp">
     public class Character : MonoBehaviour
     {
@@ -638,7 +636,6 @@
         CooldownReduction
     }
 </code></pre>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -647,8 +644,7 @@
                                                 Player Controller Code
                                             </button>
                                             <div class = "dropdown__content">
-                                                <div class = "code__container">
-                                                    <div class = "dropdown__codeblock">
+                                                <div class = "dropdown__codeblock">
 <pre><code class="language-csharp">
 public class PlayerController : Character
 {
@@ -1661,9 +1657,14 @@ public enum PlayerMoveDirection
     None
 }
 </code></pre>
-                                                    </div>
                                                 </div>
                                             </div>
+                                        </div>
+
+                                        <div class = "gif__content">
+                                            <img src = "images/Player Movement.gif" alt="Player Movement">
+                                            <img src = "images/Player Rolls.gif" alt="Player Dodge">
+                                            <img src = "images/Player Weapon And Weapon Switching.gif" alt= "Weapon Switching">
                                         </div>
                                     </div>
                                 </div>
@@ -1687,8 +1688,7 @@ public enum PlayerMoveDirection
                                                 Base Weapon Code
                                             </button>
                                             <div class = "dropdown__content">
-                                                <div class = "code__container">
-                                                    <div class = "dropdown__codeblock">
+                                                <div class = "dropdown__codeblock">
 <pre><code class="language-csharp">
     //Base class for all weapons 
     public class BaseWeapon : MonoBehaviour
@@ -1852,7 +1852,6 @@ public enum PlayerMoveDirection
         }
     }
 </code></pre>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1869,8 +1868,7 @@ public enum PlayerMoveDirection
                                                 Projectile Weapon Base
                                             </button>
                                             <div class = "dropdown__content">
-                                                <div class = "code__container">
-                                                    <div class = "dropdown__codeblock">
+                                                <div class = "dropdown__codeblock">
 <pre><code class="language-csharp">
     public class ProjectileWeapon : BaseWeapon
     {
@@ -2086,7 +2084,6 @@ public enum PlayerMoveDirection
     
     }
 </code></pre>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -2096,8 +2093,7 @@ public enum PlayerMoveDirection
                                                 Beam Weapon Base
                                             </button>
                                             <div class = "dropdown__content">
-                                                <div class = "code__container">
-                                                    <div class = "dropdown__codeblock">
+                                                <div class = "dropdown__codeblock">
 <pre><code class="language-csharp">
     public class BeamWeapon : BaseWeapon
     {
@@ -2292,7 +2288,6 @@ public enum PlayerMoveDirection
         }
     }
 </code></pre>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -2306,8 +2301,132 @@ public enum PlayerMoveDirection
                                     </button>
         
                                     <div class = "dropdown__content">
-                                        <div class ="dropdown__text">
-                                            Together Don't mess up things!
+                                        <div class = "dropdown__text">
+                                            The game also contains 2 different types of powerups, modifiers and active powerups.<br/>
+                                            Modifiers contain abilities such as life steal, movement speed buffs and rate of fire increases. <br/>
+                                            Active powerups on the other hand, are activated manually by the player when wanted<br/>
+                                            They include things such as, a molotov, a portaMorta, and a dumbell powerup (Each shown in the below gifs).<br/>
+                                        </div>
+
+                                        <div class = "gif__content">
+                                            <img src = "images/Molotov.gif" alt="Molotov Powerup">
+                                            <img src = "images/PortaMorta.gif" alt="PortaMorta Powerup">
+                                            <img src = "images/Dumbell.gif" alt= "Dumbell Powerup">
+                                        </div>
+
+                                        <div class = "dropdown">
+                                            <button class="dropdown__button" style = "background-color: rgb(54, 141, 158); scale: 80%;">
+                                                Base Powerup Code
+                                            </button>
+                                            <div class = "dropdown__content">
+                                                <div class = "dropdown__codeblock">
+<pre><code class="language-csharp">
+    public class BaseActivePowerup : MonoBehaviour
+{
+    public int activePowerUpID;
+    [SerializeField] protected float cooldown; // Cooldown between uses
+    [SerializeField] string powerupName = ""; // Name of the powerup in item desc box
+    [SerializeField] string powerupDescription = ""; // Description of the powerup in item desc box
+    [SerializeField] Sprite powerupIcon = null; // Icon that displays on ui when this ability is held
+    [SerializeField] float equippedSize = 0.5f; // Size to scale up/down to when equipped
+    [SerializeField] Vector3 equippedPosition = new Vector3(0.5f, -0.5f, -0.6f); // Position on the player to move to when equipped
+    protected bool equipped = false;
+
+    protected void Update()
+    {
+        if (!equipped)
+        {
+            transform.position += (Vector3.up * Mathf.Sin(Time.time * 2) / 2) * Time.deltaTime;
+        }
+    }
+
+    public virtual float UseAbility()
+    {
+        return cooldown;
+    }
+
+    public virtual void Equip()
+    {
+        if (equipped) return; // Cannot equip same object twice
+
+        equipped = true;
+        transform.parent = PlayerController.instance.gameObject.transform.GetChild(0);
+        transform.position = PlayerController.instance.gameObject.transform.position + (Quaternion.Euler(PlayerController.instance.transform.rotation.eulerAngles) * equippedPosition);
+        transform.localScale *= equippedSize;
+
+        if (GameManager.GMinstance != null)
+        {
+            GameManager.GMinstance.powerupsPickedUp[activePowerUpID] = true;
+        }
+        if (ItemPopupController.instance != null)
+        {
+            ItemPopupController.instance.RemoveBox(powerupName, powerupDescription, transform.position);
+        }
+    }
+    public virtual void Unequip()
+    {
+        if (!equipped) return; // Cannot unequip a non active ability
+
+        equipped = false;
+        transform.parent = null;
+        transform.position = PlayerController.instance.transform.position;
+        transform.rotation = Quaternion.identity;
+        transform.localScale *= 1.0f/equippedSize;
+
+        ItemPopupController.instance.AddBox(powerupName, powerupDescription, transform.position);
+    }
+
+    // Getters
+    public bool IsEquipped() { return equipped; }
+    public float GetCooldownTime() { return cooldown; }
+    public Sprite GetSprite() { return powerupIcon; }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == PlayerController.instance.gameObject)
+        {
+            ItemPopupController.instance.AddBox(powerupName, powerupDescription, transform.position);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == PlayerController.instance.gameObject)
+        {
+            ItemPopupController.instance.RemoveBox(powerupName, powerupDescription, transform.position);
+        }
+    }
+
+    public string GetDescription()
+    {
+        return powerupDescription;
+    }
+
+    public string GetTitle()
+    {
+        return powerupName;
+    }
+}
+</code></pre>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class = "dropdown__text">
+                                            Modifiers are stored as a dictionary of values to be called on when being applied to the player or enemies. <br/>
+                                            When collected by the player modifiers are immediately applied to the players stats and are stored within a list of modifiers on the player character. <br/>
+                                            When actions are then called the appropriate modifiers are then taken from this list and applied to the action. <br/>
+                                        </div>
+
+                                        <div class = "dropdown">
+                                            <button class="dropdown__button" style = "background-color: rgb(54, 141, 158); scale: 80%;">
+                                                Modifier Base
+                                            </button>
+                                            <div class = "dropdown__content">
+                                                <div class = "dropdown__codeblock">
+<pre><code class="language-csharp">
+</code></pre>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2318,7 +2437,6 @@ public enum PlayerMoveDirection
                             </div>
                         </div>
                     </p>
-                </div>
             </div>
         </div>
     </section>
