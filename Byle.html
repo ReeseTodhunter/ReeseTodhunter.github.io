@@ -69,7 +69,7 @@
                                     </button>
         
                                     <div class = "dropdown__content">
-                                        <div class ="dropdown__text">
+                                        <div class = "dropdown__text">
                                             The player controller is built to function as a top down character with multiple weapon and powerup 
                                             capabilities which can be swapped out and changed at run time.<br/>
                                             The controller inherits from a "Character" base class, which holds the base methods for things such as: Healing, Taking Damage, Death and Status Effects. <br/>
@@ -77,7 +77,7 @@
                                             Both the "Character" and the "PlayerController" code can be found within the below dropdowns.<br/>
                                         </div>
                                         <div class = "dropdown">
-                                            <button class="dropdown__button" style = "background-color: rgb(54, 141, 158); scale: 80%;">
+                                            <button class = "dropdown__button" style = "background-color: rgb(54, 141, 158); scale: 80%;">
                                                 Character Code
                                             </button>
                                             <div class = "dropdown__content">
@@ -640,7 +640,7 @@
                                             </div>
                                         </div>
                                         <div class = "dropdown">
-                                            <button class="dropdown__button" style = "background-color: rgb(54, 141, 158); scale: 80%;">
+                                            <button class = "dropdown__button" style = "background-color: rgb(54, 141, 158); scale: 80%;">
                                                 Player Controller Code
                                             </button>
                                             <div class = "dropdown__content">
@@ -1662,20 +1662,24 @@ public enum PlayerMoveDirection
                                         </div>
 
                                         <div class = "gif__content">
-                                            <img src = "images/Player Movement.gif" alt="Player Movement">
-                                            <img src = "images/Player Rolls.gif" alt="Player Dodge">
-                                            <img src = "images/Player Weapon And Weapon Switching.gif" alt= "Weapon Switching">
+                                            <img src = "images/Player Movement.gif" alt = "Player Movement">
+                                            <img src = "images/Player Rolls.gif" alt = "Player Dodge">
+                                            <img src = "images/Player Weapon And Weapon Switching.gif" alt = "Weapon Switching">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class = "dropdown">
-                                    <button class="dropdown__button">
+                                    <button class = "dropdown__button">
                                         Weapons
                                     </button>
                                     <div class = "dropdown__content">
 
-                                        <div class ="dropdown__text">
+                                        <div class = "gif__banner">
+                                            <img src = "images/Weapons.gif" alt = "Modifiers">
+                                        </div> 
+
+                                        <div class = "dropdown__text">
                                             The weapons within the game are built upon 2 of 3 base classes.<br/>
                                             The Base Weapon class holds all of the base requirements for any weapon within the game such as the weapon audio,
                                             different weapon reticles and each weapon's flavour/pickup text.<br/>
@@ -1684,7 +1688,7 @@ public enum PlayerMoveDirection
                                         </div>
 
                                         <div class = "dropdown">
-                                            <button class="dropdown__button" style = "background-color: rgb(54, 141, 158); scale: 80%;">
+                                            <button class = "dropdown__button" style = "background-color: rgb(54, 141, 158); scale: 80%;">
                                                 Base Weapon Code
                                             </button>
                                             <div class = "dropdown__content">
@@ -1856,10 +1860,19 @@ public enum PlayerMoveDirection
                                             </div>
                                         </div>
 
-                                        <div class ="dropdown__text">
+                                        <div class = "dropdown__text">
                                             Off of this base weapon class both the "Projectile" and "Beam" weapon base classes are built.<br/>
                                             These classes serve as the actual base for most weapons within the game, containing the complete functions for firing and reloading.
                                             This allows for the easy creation and itteration of new weapons from these base classes.<br/>
+                                        </div>
+
+                                        <div class = "gif__content">
+                                            <img src = "images/Rifle.gif" alt = "Rifle">
+                                            <img src = "images/Cannon.gif" alt = "Shattercannon">
+                                            <img src = "images/Laser.gif" alt = "Laser">
+                                        </div>
+
+                                        <div class = "dropdown__text">
                                             Both of these classes are shown below.<br/>
                                         </div>
 
@@ -2303,15 +2316,19 @@ public enum PlayerMoveDirection
                                     <div class = "dropdown__content">
                                         <div class = "dropdown__text">
                                             The game also contains 2 different types of powerups, modifiers and active powerups.<br/>
-                                            Modifiers contain abilities such as life steal, movement speed buffs and rate of fire increases. <br/>
-                                            Active powerups on the other hand, are activated manually by the player when wanted<br/>
+                                            Modifiers contain abilities such as, life steal, movement speed buffs, and rate of fire increases. <br/>
+                                            Active powerups on the other hand, are activated manually by the player, when wanted.<br/>
                                             They include things such as, a molotov, a portaMorta, and a dumbell powerup (Each shown in the below gifs).<br/>
                                         </div>
 
                                         <div class = "gif__content">
-                                            <img src = "images/Molotov.gif" alt="Molotov Powerup">
-                                            <img src = "images/PortaMorta.gif" alt="PortaMorta Powerup">
-                                            <img src = "images/Dumbell.gif" alt= "Dumbell Powerup">
+                                            <img src = "images/Molotov.gif" alt = "Molotov Powerup">
+                                            <img src = "images/PortaMorta.gif" alt = "PortaMorta Powerup">
+                                            <img src = "images/Dumbell.gif" alt = "Dumbell Powerup">
+                                        </div>
+
+                                        <div class = "dropdown__text">
+                                            The base code for an active powerup can be seen here.
                                         </div>
 
                                         <div class = "dropdown">
@@ -2412,27 +2429,188 @@ public enum PlayerMoveDirection
                                         </div>
 
                                         <div class = "dropdown__text">
-                                            Modifiers are stored as a dictionary of values to be called on when being applied to the player or enemies. <br/>
-                                            When collected by the player modifiers are immediately applied to the players stats and are stored within a list of modifiers on the player character. <br/>
-                                            When actions are then called the appropriate modifiers are then taken from this list and applied to the action. <br/>
+                                            Conversely, modifiers are stored as a dictionary of values, these can then be called to when applied to players or enemies.
+                                            When collected by the player the modifier checks the dictionary for the selected modifier then checks the range for the modifier's variance.<br/>
+                                            Once this is done the modifier's Type and value are added to a list of modifiers on the player character.
+                                            When actions are then called on the player the appropriate modifiers are then taken from this list and applied to the action. <br/>
+                                        </div>
+
+                                        <div class = "gif__banner">
+                                            <img src = "images/Modifiers.gif" alt = "Modifiers">
+                                        </div>    
+                                        
+                                        <div class = "dropdown__text">
+                                            The code for each modifier's base can be found here.<br/>
                                         </div>
 
                                         <div class = "dropdown">
                                             <button class="dropdown__button" style = "background-color: rgb(54, 141, 158); scale: 80%;">
-                                                Modifier Base
+                                                Base Modifier Code
                                             </button>
                                             <div class = "dropdown__content">
                                                 <div class = "dropdown__codeblock">
 <pre><code class="language-csharp">
+    public class BasePowerup : MonoBehaviour
+{
+    public int powerupID;
+    [SerializeField] ModifierType modType; // Modifier that will be changed
+    [SerializeField] protected float modAmount = 0.0f; // Amount of the modifier that will be changed
+    [SerializeField] protected float modVariation = 0.0f; // +/- difference added onto the mod amount for variety among powerups
+    [SerializeField] string pickupText = ""; // Text that displays after the number
+    [SerializeField] string powerupName = ""; // Name of the powerup in item desc box
+    [SerializeField] string powerupDescription = ""; // Description of the powerup in item desc box
+
+    int playerRange = 0; // How close the player is to powerup. 0 = out of range, 1 = close enough for description to pop up, 2 = close enough to pick up
+    GameObject itemDescBox;
+
+    protected void Update()
+    {
+        // Idle float animation
+        transform.position += (Vector3.up * Mathf.Sin(Time.time * 2) / 2) * Time.deltaTime;
+    }
+
+    // Virtual OnPickup function. Changed by any child classes for their own respective extra effects.
+    // Most powerups just change a modifier though, so the code here will be fine on it's own
+    protected virtual bool OnPickup()
+    {
+        if (GameManager.GMinstance != null)
+        {
+            GameManager.GMinstance.powerupsPickedUp[powerupID] = true;
+        }
+        PlayerController.instance.AddModifier(modType, modAmount);
+        return true;
+    }
+
+    // Called when the player enters/exits a powerup trigger box
+    private void TriggerUpdate()
+    {
+        // Player has walked into item description range
+        if (playerRange > 0)
+        {
+            // Spawn item box
+            ItemPopupController.instance.AddBox(FormatText(powerupName), FormatText(powerupDescription), transform.position);
+
+            // Player has walked into pick up range
+            if (playerRange == 2) 
+            {
+                // Run pickup code. If OnPickup() returns false then the pickup will not be used
+                if (!OnPickup()) return;
+
+                // Play pickup sound effect
+                PlayerController.instance.PlayItemPickup();
+
+                // Paste text onto floating text if possible
+                if (ProjectileLibrary.instance != null)
+                {
+                    GameObject createdText = Instantiate(ProjectileLibrary.instance.GetProjectile(Projectiles.FLOATING_TEXT), PlayerController.instance.transform.position + Vector3.up * 2.0f, Quaternion.Euler(45.0f, 0.0f, 0.0f));
+                    createdText.GetComponent<ItemPickupFade>().SetText(FormatText(pickupText));
+                }
+
+                // Destroy item description box
+                ItemPopupController.instance.RemoveBox(FormatText(powerupName), FormatText(powerupDescription), transform.position);
+
+                // Destroy pickup
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            // Destroy item description box
+            ItemPopupController.instance.RemoveBox(FormatText(powerupName), FormatText(powerupDescription), transform.position);
+        }
+    }
+    protected void OnTriggerEnter(Collider other)
+    {
+        // Check if player has walked into trigger
+        if (other.gameObject == PlayerController.instance.gameObject)
+        {
+            playerRange++;
+            TriggerUpdate();
+        }
+    }
+    protected void OnTriggerExit(Collider other)
+    {
+        // Check if player has walked out of trigger
+        if (other.gameObject == PlayerController.instance.gameObject)
+        {
+            playerRange--;
+            TriggerUpdate();
+        }
+    }
+
+    // Lets other code change the values on the powerup for "variety"
+    public void SetModAmount(float a_modAmount)
+    {
+        modAmount = a_modAmount;
+    }
+    public void RandomiseModAmount()
+    {
+        modAmount += Random.Range(-modVariation, modVariation); ;
+    }
+
+    // Inserts number values into text
+    private string FormatText(string inputString)
+    {
+        return inputString
+            .Replace("{percent}", Mathf.Round(modAmount * 100.0f).ToString() + "%")
+            .Replace("{integer}", Mathf.Round(modAmount).ToString())
+            .Replace("{-percent}", Mathf.Round(modAmount * -100.0f).ToString() + "%")
+            .Replace("{float}", (System.Math.Round(modAmount, 2)).ToString()); // rounds to 2 decimal points
+    }
+
+    // Inserts number values into text. Shows modAmount values including ranges as opposed to just single value
+    private string FormatTextRange(string inputString)
+    {
+        if (modVariation == 0.0f) return FormatText(inputString); // If no variation in potential power-up values, do not try to display a range
+        return inputString
+            .Replace("{percent}", Mathf.Round((modAmount - modVariation) * 100.0f).ToString() + "-" + Mathf.Round((modAmount + modVariation) * 100.0f).ToString() + "%")
+            .Replace("{integer}", Mathf.Round(modAmount - modVariation).ToString() + "-" + Mathf.Round(modAmount + modVariation).ToString())
+            .Replace("{-percent}", Mathf.Round((modAmount - modVariation) * -100.0f).ToString() + "-" + Mathf.Round((modAmount + modVariation) * -100.0f).ToString() + "%")
+            .Replace("{float}", (System.Math.Round((modAmount - modVariation), 2)).ToString() + "-" + (System.Math.Round((modAmount + modVariation), 2)).ToString()); // rounds to 2 decimal points
+    }
+
+    public string GetDescription()
+    {
+        return powerupDescription;
+    }
+
+    public string GetDescriptionEncyclopedia()
+    {
+        return FormatTextRange(powerupDescription);
+    }
+
+    public string GetTitle()
+    {
+        return powerupName;
+    }
+}
 </code></pre>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
 
+                        <div class = "dropdown">
+                            <button class="dropdown__button">
+                                Extra Contributions
+                            </button>
+                            <div class = "dropdown__content">
                                 <div class = "dropdown__text">
-                                    Ontop of this I assited in the creation of various enemy behaviours, level generation, achievement management and sound systems implemented in the game.
+                                    Ontop of each of these I assited in the creation of various enemy behaviours, level generation seeding, 
+                                    leaderboards, achievement management and sound systems implemented during the game's development.<br/>
+                                    These aren't included here as the parts of them coded by me, is now either spread throughout the systems making it 
+                                    difficult to display my contributions,
+                                    or has been retired in favour of newer and more clean solutions.<br/><br/>
+                                    Instead I'm including a few GIFs of the working verisons of enemy behaviours, level gen, and weather, all running on my old code below.<br/>
+                                </div>
+
+                                <div class = "gif__content">
+                                    <img src = "images/Boss Behaviours.gif" alt = "Boss Behaviours">
+                                    <img src = "images/Map Generation.gif" alt = "Map Generation">
+                                    <img src = "images/Weather.gif" alt = "Weather">
                                 </div>
                             </div>
                         </div>

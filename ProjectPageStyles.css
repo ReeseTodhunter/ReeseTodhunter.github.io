@@ -173,6 +173,18 @@ body{
     border-radius: 5px;
 }
 
+/*Layout for gif banner*/
+.gif__banner{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Adjust margin as needed */
+}
+
+.gif__banner img{
+    width: 100%;
+    border-radius: 5px;
+}
+
 /*Info text*/
 .dropdown{
     width:100%;
