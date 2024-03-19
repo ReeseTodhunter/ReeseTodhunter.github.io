@@ -183,6 +183,7 @@
     flex-wrap: wrap;
     justify-content: center;
     background-color: #222222;
+    margin-bottom: 50px;
 }
 
 .project__selections{
@@ -366,7 +367,7 @@
         justify-self: center;
         margin: 0 auto;
         height: 90vh;
-        background-color: #062F4F;
+        background-color: #0e5210;
         z-index: 1;
         width: 100%;
         max-width: 1300px;
