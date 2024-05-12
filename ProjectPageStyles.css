@@ -104,7 +104,23 @@ body{
     color: rgb(255, 255, 255);
 }
 
-.button:hover{
+.red:hover{
+    background: rgb(199, 0, 0);
+    transition: all 0.5s ease;
+}
+.blue:hover{
+    background: rgb(0, 74, 185);
+    transition: all 0.5s ease;
+}
+.green:hover{
+    background: rgb(23, 138, 0);
+    transition: all 0.5s ease;
+}
+.yellow:hover{
+    background: rgb(196, 183, 0);
+    transition: all 0.5s ease;
+}
+.orange:hover{
     background: rgb(200, 100, 0);
     transition: all 0.5s ease;
 }
