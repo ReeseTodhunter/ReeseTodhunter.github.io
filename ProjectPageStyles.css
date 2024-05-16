@@ -104,23 +104,23 @@ body{
     color: rgb(255, 255, 255);
 }
 
-.red:hover{
+.navred:hover{
     background: rgb(199, 0, 0);
     transition: all 0.5s ease;
 }
-.blue:hover{
+.navblue:hover{
     background: rgb(0, 74, 185);
     transition: all 0.5s ease;
 }
-.green:hover{
+.navgreen:hover{
     background: rgb(23, 138, 0);
     transition: all 0.5s ease;
 }
-.yellow:hover{
+.navyellow:hover{
     background: rgb(196, 183, 0);
     transition: all 0.5s ease;
 }
-.orange:hover{
+.navorange:hover{
     background: rgb(200, 100, 0);
     transition: all 0.5s ease;
 }
@@ -210,7 +210,6 @@ body{
 }
 
 .dropdown__button{
-    background-color: #063600;
     color: white;
     border: none;
     border-radius: 5px;
@@ -220,8 +219,52 @@ body{
     transition: background-color 0.7s, transform 0.7s;
 }
 
-.dropdown__button:hover{
+.green{
+    background-color: #063600;
+}
+
+.green:hover{
     background-color: #189a0a;
+    transform: scale(1.1);
+}
+
+.blue{
+    background-color: #040036;
+}
+
+.blue:hover{
+    background-color: #0c0a9a;
+    transform: scale(1.1);
+}
+
+.lightblue{
+    background-color: #368d9e;
+}
+
+.lightblue:hover{
+    background-color: #24cbec;
+    transform: scale(1.1);
+}
+
+.red{
+    background-color: #470101;
+}
+
+.red:hover{
+    background-color: #9a0a0a;
+    transform: scale(1.1);
+}
+
+.yellow{
+    background-color: #836f00;
+}
+
+.yellow:hover{
+    background-color: #b39907;
+    transform: scale(1.1);
+}
+
+.dropdown__button:hover{
     transform: scale(1.1);
 }
 
@@ -403,6 +446,12 @@ body{
     text-align: center;
     font-size: 6rem;
     font-weight: 100;
+    color: #f7f7f7;
+}
+
+.project h2{
+    text-align: center;
+    font-size: 2rem;
     color: #f7f7f7;
 }
 
