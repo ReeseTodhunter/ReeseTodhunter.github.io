@@ -47,29 +47,63 @@
                 <h2>(Inverse Kinematics)</h2>
             </div> 
 
-            <div class="project__background" style = "background-color: #163877;">
+            <div class="project__background" style = "background-color: #182f5a;">
+
                 <div class="video__wrapper">
-                    <video src="videos/Byle Trailer.mp4" alt="video" id="main__video"
-                     style = "width: 100%; height: 100%;" controls poster = "images/Byle Thumbnail.png"></video>
+                    <a href = "pdf/IK Based Procedural Animation Poster.pdf" target="_blank">
+                        <img src="images/IK Poster.svg" alt="Inverse Kinematics Poster" id="main__img"></img>
+                    </a>
                 </div>
+
                     <p><br/>
                         This Procedural Animator was created as my individal reasearch project during my final year of university.
                         It utilizes Inverse Kinematics to calculate the positions to move a character's leg nodes to reach a target.
                         
-                        <h2 style="margin-top: 2%;">Project Overview</h2>
+                        <h2 style="margin-top: 2%;">How it works</h2>
 
                         <div class = "image-text-container">
-                            <img src = "images/Rifle.gif" alt = "Rifle">
+                            <div class = "image_container">
+                                <img src = "images/IKOutOfRange.gif" alt = "Out Of Range">
+                                <img src = "images/IKMotion.gif" alt = "Basic IK Motion">
+                                <img src = "images/IKMotionwPole.gif" alt = "IK Motion w/Bend direction">
+                            </div>
                             <div class = "text-content">
-                                <h3>Armature</h3>
+                                <h3 style="margin-bottom: 20px;">Armature</h3>
                                 <p>
-                                    The basic armature is built up of a set of nodes used to create a "leg".
-                                    Upon startup each node defines the distance between itself and the next node in sequence, saving the distance as it's bone length.
-                                    The nodes are then moved towards a target position, starting from the target using some vector maths to position the nodes. 
-                                    Once placed in their appropriate positions this is then repeated in reverse, 
-                                    starting from the node connected to the creature's torso and working back along the chain of nodes to position them in the correct order.
-                                    
+                                    The basic armature is built up of a set of "nodes" and "bones".
+                                    On intialisation the armature sets up a list of nodes, bone lengths, and node positions, alongside the total armature length.
+                                    To then move the armature a "target node" is used.</br></br>
+                                    If the distance from the root node to the target node is greater than the total armature length, 
+                                    starting at the root node the armature gets the direction to the target and places each node along the directional vector at their bone length from the previous node.</br></br>
+                                    However, if the target node is within the armature's total length, the last node in the armature is then moved to the target position. From here the next node is moved towards the end node until within it's bone length constraint,
+                                    this is repeated with each node moving within range of it's child node. Once done this process is completed, the armature repeats this process in reverse, 
+                                    starting with placing the root node back at the root and moving each node back towards it.
+                                    With this done the desired effect with having the armature reach/bend for a target should be achieved.</br></br>
+                                    To finally apply a direction of bend to the armature, each node is rotated around a plane getting it as close to the desired bend direction as possible under it's constraints.
                                 </p>
+                            </div>
+                        </div>
+
+                        <div class = "image-text-container">
+                            <div class = "text-content">
+                                <h3 style="margin-bottom: 20px;">Walker</h3>
+                                <p>
+                                    The basic armature is built up of a set of "nodes" and "bones".
+                                    On intialisation the armature sets up a list of nodes, bone lengths, and node positions, alongside the total armature length.
+                                    To then move the armature a "target node" is used.</br></br>
+                                    If the distance from the root node to the target node is greater than the total armature length, 
+                                    starting at the root node the armature gets the direction to the target and places each node along the directional vector at their bone length from the previous node.</br></br>
+                                    However, if the target node is within the armature's total length, the last node in the armature is then moved to the target position. From here the next node is moved towards the end node until within it's bone length constraint,
+                                    this is repeated with each node moving within range of it's child node. Once done this process is completed, the armature repeats this process in reverse, 
+                                    starting with placing the root node back at the root and moving each node back towards it.
+                                    With this done the desired effect with having the armature reach/bend for a target should be achieved.</br></br>
+                                    To finally apply a direction of bend to the armature, each node is rotated around a plane getting it as close to the desired bend direction as possible under it's constraints.
+                                </p>
+                            </div>
+                            <div class = "image_container">
+                                <img src = "images/IKOutOfRange.gif" alt = "Out Of Range">
+                                <img src = "images/IKMotion.gif" alt = "Basic IK Motion">
+                                <img src = "images/IKMotionwPole.gif" alt = "IK Motion w/Bend direction">
                             </div>
                         </div>
 
@@ -82,212 +116,14 @@
                                 <div class ="dropdown__text">
                                     My main contributions to the project were the player controller, weapon code, powerup/modifer systems, and steam integration.<br/>
                                 </div>
-
-                                <div class = "dropdown">
-                                    <button class="dropdown__button blue">
-                                        Player Controller
-                                    </button>
-        
-                                    <div class = "dropdown__content">
-                                        <div class = "dropdown__text">
-                                            The player controller is built to function as a top down character with multiple weapon and powerup 
-                                            capabilities which can be swapped out and changed at run time.<br/>
-                                            The controller inherits from a "Character" base class, which holds the base methods for things such as: Healing, Taking Damage, Death and Status Effects. <br/>
-                                            Along side all of their repective variables.<br/>
-                                            Both the "Character" and the "PlayerController" code can be found within the below dropdowns.<br/>
-                                        </div>
-                                        <div class = "dropdown">
-                                            <button class = "dropdown__button lightblue" style = "scale: 80%;">
-                                                Character Code
-                                            </button>
-                                            <div class = "dropdown__content">
-                                                <div class = "dropdown__codeblock">
-<pre><code class="language-csharp">
-</code></pre>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class = "dropdown">
-                                            <button class = "dropdown__button lightblue" style = "scale: 80%;">
-                                                Player Controller Code
-                                            </button>
-                                            <div class = "dropdown__content">
-                                                <div class = "dropdown__codeblock">
-<pre><code class="language-csharp">
-</code></pre>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class = "gif__content">
-                                            <img src = "images/Player Movement.gif" alt = "Player Movement">
-                                            <img src = "images/Player Rolls.gif" alt = "Player Dodge">
-                                            <img src = "images/Player Weapon And Weapon Switching.gif" alt = "Weapon Switching">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class = "dropdown">
-                                    <button class = "dropdown__button blue">
-                                        Weapons
-                                    </button>
-                                    <div class = "dropdown__content">
-
-                                        <div class = "gif__banner">
-                                            <img src = "images/Weapons.gif" alt = "Modifiers">
-                                        </div> 
-
-                                        <div class = "dropdown__text">
-                                            The weapons within the game are built upon 2 of 3 base classes.<br/>
-                                            The Base Weapon class holds all of the base requirements for any weapon within the game such as the weapon audio,
-                                            different weapon reticles and each weapon's flavour/pickup text.<br/>
-                                            This class also contains virtual functions for all firing and reloading scripts acting as a template class for other weapon bases.<br/>
-                                            This Base Weapon Class can be seen below.<br/>
-                                        </div>
-
-                                        <div class = "dropdown">
-                                            <button class = "dropdown__button lightblue" style = "scale: 80%;">
-                                                Base Weapon Code
-                                            </button>
-                                            <div class = "dropdown__content">
-                                                <div class = "dropdown__codeblock">
-<pre><code class="language-csharp">
-</code></pre>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class = "dropdown__text">
-                                            Off of this base weapon class both the "Projectile" and "Beam" weapon base classes are built.<br/>
-                                            These classes serve as the actual base for most weapons within the game, containing the complete functions for firing and reloading.
-                                            This allows for the easy creation and itteration of new weapons from these base classes.<br/>
-                                        </div>
-
-                                        <div class = "gif__content">
-                                            <img src = "images/Rifle.gif" alt = "Rifle">
-                                            <img src = "images/Cannon.gif" alt = "Shattercannon">
-                                            <img src = "images/Laser.gif" alt = "Laser">
-                                        </div>
-
-                                        <div class = "dropdown__text">
-                                            Both of these classes are shown below.<br/>
-                                        </div>
-
-                                        <div class = "dropdown">
-                                            <button class="dropdown__button lightblue" style = "scale: 80%;">
-                                                Projectile Weapon Base
-                                            </button>
-                                            <div class = "dropdown__content">
-                                                <div class = "dropdown__codeblock">
-<pre><code class="language-csharp">
-</code></pre>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class = "dropdown">
-                                            <button class="dropdown__button lightblue" style = "scale: 80%;">
-                                                Beam Weapon Base
-                                            </button>
-                                            <div class = "dropdown__content">
-                                                <div class = "dropdown__codeblock">
-<pre><code class="language-csharp">
-</code></pre>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class = "dropdown">
-                                    <button class="dropdown__button blue">
-                                        Powerups/Modifiers
-                                    </button>
-        
-                                    <div class = "dropdown__content">
-                                        <div class = "dropdown__text">
-                                            The game also contains 2 different types of powerups, modifiers and active powerups.<br/>
-                                            Modifiers contain abilities such as, life steal, movement speed buffs, and rate of fire increases. <br/>
-                                            Active powerups on the other hand, are activated manually by the player, when wanted.<br/>
-                                            They include things such as, a molotov, a portaMorta, and a dumbell powerup (Each shown in the below gifs).<br/>
-                                        </div>
-
-                                        <div class = "gif__content">
-                                            <img src = "images/Molotov.gif" alt = "Molotov Powerup">
-                                            <img src = "images/PortaMorta.gif" alt = "PortaMorta Powerup">
-                                            <img src = "images/Dumbell.gif" alt = "Dumbell Powerup">
-                                        </div>
-
-                                        <div class = "dropdown__text">
-                                            The base code for an active powerup can be seen here.
-                                        </div>
-
-                                        <div class = "dropdown">
-                                            <button class="dropdown__button lightblue" style = "scale: 80%;">
-                                                Base Powerup Code
-                                            </button>
-                                            <div class = "dropdown__content">
-                                                <div class = "dropdown__codeblock">
-<pre><code class="language-csharp">
-</code></pre>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class = "dropdown__text">
-                                            Conversely, modifiers are stored as a dictionary of values, these can then be called to when applied to players or enemies.
-                                            When collected by the player the modifier checks the dictionary for the selected modifier then checks the range for the modifier's variance.<br/>
-                                            Once this is done the modifier's Type and value are added to a list of modifiers on the player character.
-                                            When actions are then called on the player the appropriate modifiers are then taken from this list and applied to the action. <br/>
-                                        </div>
-
-                                        <div class = "gif__banner">
-                                            <img src = "images/Modifiers.gif" alt = "Modifiers">
-                                        </div>    
-                                        
-                                        <div class = "dropdown__text">
-                                            The code for each modifier's base can be found here.<br/>
-                                        </div>
-
-                                        <div class = "dropdown">
-                                            <button class="dropdown__button lightblue" style = "scale: 80%;">
-                                                Base Modifier Code
-                                            </button>
-                                            <div class = "dropdown__content">
-                                                <div class = "dropdown__codeblock">
-<pre><code class="language-csharp">
-</code></pre>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class = "dropdown">
-                            <button class="dropdown__button blue">
-                                Extra Contributions
-                            </button>
-                            <div class = "dropdown__content">
-                                <div class = "dropdown__text">
-                                    Ontop of each of these I assited in the creation of various enemy behaviours, level generation seeding, 
-                                    leaderboards, achievement management and sound systems implemented during the game's development.<br/>
-                                    These aren't included here as the parts of them coded by me, is now either spread throughout the systems making it 
-                                    difficult to display my contributions,
-                                    or has been retired in favour of newer and more clean solutions.<br/><br/>
-                                    Instead I'm including a few GIFs of the working verisons of enemy behaviours, level gen, and weather, all running on my old code below.<br/>
-                                </div>
-
-                                <div class = "gif__content">
-                                    <img src = "images/Boss Behaviours.gif" alt = "Boss Behaviours">
-                                    <img src = "images/Map Generation.gif" alt = "Map Generation">
-                                    <img src = "images/Weather.gif" alt = "Weather">
-                                </div>
                             </div>
                         </div>
                     </p>
+                    <div class="video__wrapper">
+                        <a href = "pdf/IK Based Procedural Animation Poster.pdf" target="_blank">
+                            <img src="images/IK Poster.svg" alt="Inverse Kinematics Poster" id="main__img"></img>
+                        </a>
+                    </div>
             </div>
         </div>
     </section>
