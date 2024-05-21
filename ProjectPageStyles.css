@@ -134,6 +134,21 @@ body{
     margin-right: 5px;
 }
 
+.image-text-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.image-text-container img {
+    max-width: 50%;
+    height: auto;
+    margin-right: 20px;
+}
+.image-text-container .text-content {
+    max-width: 50%;
+}
+
 /* Project Base */
 .project{
     width: 100%; /* Bounds for project area */
@@ -233,7 +248,7 @@ body{
 }
 
 .blue:hover{
-    background-color: #0c0a9a;
+    background-color: #2a27e9;
     transform: scale(1.1);
 }
 
@@ -429,6 +444,18 @@ body{
         cursor: pointer;
     }
 
+    .image-text-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .image-text-container img {
+        max-width: 100%;
+        margin: 0 0 20px 0;
+    }
+    .image-text-container .text-content {
+        max-width: 100%;
+    }
+
     #mobile-menu.is-active .bar:nth-child(2){
         opacity: 0;
     }
@@ -453,6 +480,10 @@ body{
     text-align: center;
     font-size: 2rem;
     color: #f7f7f7;
+}
+
+.project h3{
+    font-size: 1.5rem;
 }
 
 .project p{
