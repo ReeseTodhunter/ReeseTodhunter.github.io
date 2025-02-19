@@ -56,8 +56,8 @@
                 </div>
 
                     <p><br/>
-                        This Procedural Animator was created as my individal reasearch project during my final year of university.
-                        It utilizes Inverse Kinematics to calculate the positions to move a character's leg nodes to reach a target.
+                        This Procedural Animator was created as my individal research project during my final year of university.
+                        It utilizes Inverse Kinematics to calculate and procedurally animate a character's legs during motion.
                         
                         <h2 style="margin-top: 2%;">How it works</h2>
 
@@ -88,22 +88,26 @@
                             <div class = "text-content">
                                 <h3 style="margin-bottom: 20px;">Walker</h3>
                                 <p>
-                                    The basic armature is built up of a set of "nodes" and "bones".
-                                    On intialisation the armature sets up a list of nodes, bone lengths, and node positions, alongside the total armature length.
-                                    To then move the armature a "target node" is used.</br></br>
-                                    If the distance from the root node to the target node is greater than the total armature length, 
-                                    starting at the root node the armature gets the direction to the target and places each node along the directional vector at their bone length from the previous node.</br></br>
-                                    However, if the target node is within the armature's total length, the last node in the armature is then moved to the target position. From here the next node is moved towards the end node until within it's bone length constraint,
-                                    this is repeated with each node moving within range of it's child node. Once done this process is completed, the armature repeats this process in reverse, 
-                                    starting with placing the root node back at the root and moving each node back towards it.
-                                    With this done the desired effect with having the armature reach/bend for a target should be achieved.</br></br>
-                                    To finally apply a direction of bend to the armature, each node is rotated around a plane getting it as close to the desired bend direction as possible under it's constraints.
+                                    The Walker class controls the overall movement and behavior of a walker entity, these consist of multiple legs managed by instances of the IK_LegArmature class. <br/><br/>
+
+                                    On initialization, the walker creates leg pairs from the list of leg armatures and sets up its starting position and height.<br/><br/>
+
+                                    To move the walker, the MoveWalker method handles player input, allowing for movement with the W,A,S and D keys and rotation with the arrow keys. 
+                                    It calculates the current velocity based on the change in position and updates the walker's position accordingly.<br/><br/>
+
+                                    Next the UpdateWalkerBody method handles what height the walker remains at during action.
+                                    Using raycasts it detects the distance from the ground and overhead obstacles, lowering to avoid overhead obstacles until it hits a threshold height setup in the editor that it will not descend under.
+                                    This method also drops the walker down slightly when beginning to move and raises it up again when stood still to better simulate motion.<br/><br/>
+
+                                    Finally the UpdateLegs method coordinates the movement of the legs, deciding on which leg to move and when.
+                                    Initally this calls the CheckMovement method in the IK_LegArmature class on both legs to update stride lengths and the direction to cast ray traces based on the walker's current velocity.
+                                    Then once the leg to move is chosen it calls to UpdateTarget again within the IK_LegArmature class which moves the legs target location ahead of the walker based on it's current velocity.
                                 </p>
                             </div>
                             <div class = "image_container">
-                                <img src = "images/IKOutOfRange.gif" alt = "Out Of Range">
-                                <img src = "images/IKMotion.gif" alt = "Basic IK Motion">
-                                <img src = "images/IKMotionwPole.gif" alt = "IK Motion w/Bend direction">
+                                <img src = "images/IKWalkerMovement.gif" alt = "Walker Movement">
+                                <img src = "images/IKWalkerRoofDetection.gif" alt = "Walker Roof and Floor Detection">
+                                <img src = "images/IKWalkerTargetSettingStairs.gif" alt = "Walker Target Setting and Stairs">
                             </div>
                         </div>
 
