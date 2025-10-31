@@ -47,11 +47,34 @@
         <div class="video__container">
             <div class="video__content">
                 <div class="video__wrapper">
+<<<<<<< Updated upstream
                     <video src="videos/Portfolio.mp4" alt="video" id="main__video" loop muted autoplay>
                         <source src="">
                         <source src="">
                         <source src="">
                     </video>
+=======
+                    <iframe 
+                        id="introVideo"
+                        src="https://www.youtube.com/embed/F9j_RMJsMjo?autoplay=1&mute=1&controls=0&rel=0&showinfo=0"
+                        title="Intro Video"
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; opacity: 1; transition: opacity 1s ease-in-out;"
+                        allow="autoplay; encrypted-media">
+                    </iframe>
+
+                    <!-- Looping video -->
+                    <iframe 
+                        id="loopVideo"
+                        src="https://www.youtube.com/embed/g_AcWkC76eY?autoplay=0&mute=1&controls=0&rel=0&showinfo=0&loop=1&playlist=g_AcWkC76eY"
+                        title="Loop Video"
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; opacity: 0; transition: opacity 1s ease-in-out;"
+                        allow="loop; autoplay; encrypted-media">
+                    </iframe>
+
+                    <!--<video id="introVideo" src="videos/Portfolio Video.mp4" alt="video" id="main__video" muted autoplay></video>
+
+                    <video id="loopVideo" src="videos/Portfolio Video Loop.mp4" alt="video" id="main__video" loop autoplay muted></video>-->
+>>>>>>> Stashed changes
                 </div>
             </div>
         </div>
@@ -171,6 +194,31 @@
         </div>
     </section>
 
+<<<<<<< Updated upstream
+=======
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const intro = document.getElementById("introVideo");
+            const loop = document.getElementById("loopVideo");
+
+            // how long your intro is, in ms
+            // set this to the real length of F9j_RMJsMjo
+            const INTRO_DURATION = 25000; // 25 seconds
+
+            setTimeout(() => {
+                // start the loop by forcing autoplay=1
+                const url = new URL(loop.src);
+                url.searchParams.set("autoplay", "1");
+                loop.src = url.toString();
+
+                // fade intro out, fade loop in
+                intro.style.opacity = "0";
+                loop.style.opacity = "1";
+            }, INTRO_DURATION);
+        });
+    </script>
+
+>>>>>>> Stashed changes
     <script src="app.js"></script>
 </body>
 </html>
