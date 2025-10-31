@@ -28,7 +28,7 @@
                     <a href="#projects" class="button green"><i class="fa-solid fa-laptop-code"></i>Projects</a>
                 </li>
                 <li class="navbar__btn">
-                    <a href="#gamejams" class="button red"><i class="fa-solid fa-laptop-code"></i>GameJams</a>
+                    <a href="#gamejams" class="button red"><i class="fa-solid fa-laptop-code"></i>Experimental</a>
                 </li>
                 <li class="navbar__btn">
                     <a href="/pdf/Reese_Todhunter-CV.pdf" target="_blank" class="button orange"><i class="fa-solid fa-file-lines"></i>CV</a>
@@ -47,11 +47,9 @@
         <div class="video__container">
             <div class="video__content">
                 <div class="video__wrapper">
-                    <video src="videos/Portfolio.mp4" alt="video" id="main__video" loop muted autoplay>
-                        <source src="">
-                        <source src="">
-                        <source src="">
-                    </video>
+                    <video id="introVideo" src="videos/Portfolio Video.mp4" alt="video" id="main__video" muted autoplay></video>
+
+                    <video id="loopVideo" src="videos/Portfolio Video Loop.mp4" alt="video" id="main__video" loop autoplay muted></video>
                 </div>
             </div>
         </div>
@@ -67,12 +65,13 @@
             </div>
             <div class="secondary__container" style = "margin-bottom: -300px;">
                 <div class="main__content" style="margin-top: auto;">
-                    <p>Hey! I'm Reese, a graduate with a solid 2:1 honors degree in Games Programming.
+                    <p>
+                        Hi, I'm Reese, a graduate with a solid 2:1 degree with honors in Games Programming.
                         Having successfully completed my course, 
                         I'm now eagerly looking forward to finding my place within the games industry. 
-                        With a passion for creating engaging digital experiences, 
+                        I have a passion for creating engaging digital experiences, and
                         I'm excited to showcase my journey and projects within the realm of game development.
-                        My main expertise lie in C# and Unity, however I also have some experience with Unreal and C++.
+                        My main expertise lie in C# and Unity, however I also have some experience with Unreal, C++ and Godot.
                         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                     </p>
                 </div>
@@ -88,7 +87,7 @@
                 <sub>Click on a project to learn more</sub>
             </div>
             <div class="secondary__container">
-                <a href="Byle.html" class="project__selections">
+                <a href="NewByle.html" class="project__selections">
                     <div class= "secondary__image">
                         <img src="images/Byle.png" alt="pic" id="Byle" style = "width: 300px; height: 368px;">
                     </div>
@@ -106,6 +105,8 @@
                         <div style = "color: #ffffff; background-color: #84004b;">C#</div>
                     </div>
                 </a>
+            </div>
+            <div class="secondary__container" style = "margin-bottom: 50px;">
                 <a href="Shaders.html" class="project__selections">
                     <div class= "secondary__image">
                         <img src="images/Shaders.png" alt="pic" id="main__img" style = "width: 300px; height: 368px;">
@@ -115,9 +116,8 @@
                         <div style = "color: #ffffff; background-color: #14479e;">Shader tool</div>
                     </div>
                 </a>
-            </div>
-            <div class="secondary__container" style = "margin-bottom: 50px;">
-                <a href="UnrealSandbox.html" class="project__selections">
+
+                <!-- <a href="UnrealSandbox.html" class="project__selections">
                     <div class= "secondary__image">
                         <img src="images/Unreal Sandbox.png" alt="pic" id="main__img" style = "width: 300px; height: 368px;">
                     </div>
@@ -125,7 +125,7 @@
                         <div style = "color: #ffffff; background-color: #31ba19;">Unreal</div>
                         <div style = "color: #ffffff; background-color: #9a8e0a;">C++</div>
                     </div>
-                </a>
+                </a> -->
                 
                 <a href="MazeGenerator.html" class="project__selections">
                     <div class= "secondary__image">
@@ -143,13 +143,23 @@
     <section id="gamejams">
         <div class="secondary">
             <div class="secondary__title" style="background-color: #740000;">
-                <h1>Game Jams</h1>
-                <sub>Click on a project to learn more</sub>
+                <h1>Experimental Projects</h1>
+                <sub>Click on a project to view Itch.io page</sub>
             </div>
             <div class="secondary__container">
                 <a href="https://cryojet.itch.io/soyl" target="_blank" class="project__selections">
                     <div class= "secondary__image">
-                        <img src="images/Soyl.png" alt="pic" id="Byle" style = "width: 300px; height: 368px;">
+                        <img src="images/Soyl.png" alt="pic" id="Soyl" style = "width: 300px; height: 368px;">
+                    </div>
+                    <div class="tag">
+                        <div style = "color: #ffffff; background-color: #790c0c;">Game Jam</div>
+                        <div style = "color: #ffffff; background-color: #07a3ab;">Unity</div>
+                        <div style = "color: #ffffff; background-color: #84004b;">C#</div>
+                    </div>
+                </a>
+                <a href="https://shattercannon.itch.io/rail-rattler" target="_blank" class="project__selections">
+                    <div class= "secondary__image">
+                        <img src="images/RailRattler.png" alt="pic" id="RailRattler" style = "width: 300px; height: 368px;">
                     </div>
                     <div class="tag">
                         <div style = "color: #ffffff; background-color: #07a3ab;">Unity</div>
@@ -162,14 +172,46 @@
 
     <section id="contact">
         <div class="secondary">
-            <div class="secondary__title" style="margin-top: auto; background-color: #998308;">
+            <div class="secondary__title" style="margin-top: auto; height:auto; background-color: #998308;">
                 <h1>Contact Me</h1>
-                <sub>lololololol</sub>
+                <Sub>Email: <span id="email" style="cursor:pointer; color: #07a3ab;" onclick="copyEmail()">reeset538@gmail.com</span></sub>
+                    <script>
+                    function copyEmail() {
+                    const email = "reeset538@gmail.com";
+                    navigator.clipboard.writeText(email).then(() => {
+                        alert("Email copied to clipboard!");
+                    });
+                    }
+                    </script>
+                <Sub>Phone: <span id="email" style="cursor:pointer; color: #07a3ab;" onclick="copyPhone()">07552 321762</span></sub>
+                    <script>
+                    function copyPhone() {
+                    const phone = "07552321762";
+                    navigator.clipboard.writeText(phone).then(() => {
+                        alert("Phone number copied to clipboard!");
+                    });
+                    }
+                    </script>
             </div>
             <div class="secondary__container">
             </div>
         </div>
     </section>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const intro = document.getElementById("introVideo");
+            const loop = document.getElementById("loopVideo");
+
+            loop.style.display = "none"; // Hide looping video by default
+
+            intro.addEventListener("ended", () => {
+                intro.style.display = "none";
+                loop.style.display = "block";
+                loop.play();
+            });
+        });
+    </script>
 
     <script src="app.js"></script>
 </body>

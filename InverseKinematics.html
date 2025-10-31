@@ -22,13 +22,13 @@
             </div>
             <ul class="navbar__menu">
                 <li class="navbar__btn">
-                    <a href="/index.html#about" class="button navred"><i class="fa-solid fa-circle-info"></i>About</a>
+                    <a href="/index.html#about" class="button navblue"><i class="fa-solid fa-circle-info"></i>About</a>
                 </li>
                 <li class="navbar__btn">
                     <a href="/index.html#projects" class="button navgreen"><i class="fa-solid fa-laptop-code"></i>Projects</a>
                 </li>
                 <li class="navbar__btn">
-                    <a href="/index.html#gamejams" class="button navblue"><i class="fa-solid fa-laptop-code"></i>GameJams</a>
+                    <a href="/index.html#gamejams" class="button navred"><i class="fa-solid fa-laptop-code"></i>Experimental</a>
                 </li>
                 <li class="navbar__btn">
                     <a href="/pdf/Reese_Todhunter-CV.pdf" target="_blank" class="button navorange"><i class="fa-solid fa-file-lines"></i>CV</a>
@@ -47,7 +47,7 @@
                 <h2>(Inverse Kinematics)</h2>
             </div> 
 
-            <div class="project__background" style = "background-color: #182f5a;">
+            <div class="project__background" style = "background-color: #07245a;">
 
                 <div class="video__wrapper">
                     <a href = "pdf/IK Based Procedural Animation Poster.pdf" target="_blank">
@@ -79,7 +79,7 @@
                                     this is repeated with each node moving within range of it's child node. Once done this process is completed, the armature repeats this process in reverse, 
                                     starting with placing the root node back at the root and moving each node back towards it.
                                     With this done the desired effect with having the armature reach/bend for a target should be achieved.</br></br>
-                                    To finally apply a direction of bend to the armature, each node is rotated around a plane getting it as close to the desired bend direction as possible under it's constraints.
+                                    Finally to apply a direction of bend to the armature, each node is rotated around a plane getting it as close to the desired bend direction as possible under it's constraints.
                                 </p>
                             </div>
                         </div>
@@ -114,15 +114,21 @@
                         <div class = "dropdown">
                             <a href = "https://github.com/ReeseTodhunter/Procedural-Animation" target="_blank">
                                 <button class="dropdown__button blue">
-                                    Github Repo link
+                                    Github Repo Link
                                 </button>
                             </a>
                         </div>
                     </p>
-                    <div class="video__wrapper">
-                        <a href = "pdf/IK Based Procedural Animation Poster.pdf" target="_blank">
-                            <img src="images/IK Poster.svg" alt="Inverse Kinematics Poster" id="main__img"></img>
-                        </a>
+                    <div class = "image-text-container">
+                        <div class = "image_container">
+                            <img src = "images/BasicWalker.gif" alt = "Walker">
+                        </div>
+                        <div class = "image_container">
+                            <img src = "images/QuadWalker.gif" alt = "Quad">
+                        </div>
+                        <div class = "image_container">
+                            <img src = "images/TripodWalker.gif" alt = "Tripod">
+                        </div>
                     </div>
             </div>
         </div>

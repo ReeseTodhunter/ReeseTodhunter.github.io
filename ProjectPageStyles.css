@@ -141,6 +141,7 @@ body{
     padding: 20px;
 }
 .image-text-container img {
+    width:500px;
     max-width: 70%;
     height: auto;
     margin-bottom: 5%;
@@ -243,6 +244,15 @@ body{
     transition: background-color 0.7s, transform 0.7s;
 }
 
+.purple{
+    background-color: #330033;
+}
+
+.purple:hover{
+    background-color: #8e0a9a;
+    transform: scale(1.1);
+}
+
 .green{
     background-color: #063600;
 }
@@ -262,11 +272,11 @@ body{
 }
 
 .lightblue{
-    background-color: #368d9e;
+    background-color: #006a7c;
 }
 
 .lightblue:hover{
-    background-color: #24cbec;
+    background-color: #1f9ab3;
     transform: scale(1.1);
 }
 
