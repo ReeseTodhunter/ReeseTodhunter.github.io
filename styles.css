@@ -480,6 +480,13 @@
     -moz-text-fill-color: transparent;
 }
 
+.secondary__title a{
+        text-decoration: underline !important;
+        color: #d8d8d8;
+        background: none;
+        -webkit-text-fill-color: #d8d8d8;
+    }
+
 .tertiary h1{
     text-align: center;
     font-size: 3rem;
